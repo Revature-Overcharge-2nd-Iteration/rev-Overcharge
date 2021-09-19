@@ -149,4 +149,15 @@ class UserServiceTests {
 
 	}
 
+@Test
+void loginFailure() {
+	User user = new User("test", "test", 0, null);
+	Mockito.when(ur.existsById(user.getId())).thenReturn(false);
+
+	assertThrows(ResponseStatusException.class, () -> {
+		us.getUser(user.getId());
+	});
+
+}
+
 }
