@@ -24,7 +24,7 @@ import com.revature.overcharge.exception.AlreadyApprovedException;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.DeckService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RestController
 public class DeckController {
 

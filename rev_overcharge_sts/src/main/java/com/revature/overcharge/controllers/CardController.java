@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.services.CardService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RestController
 public class CardController {
 
