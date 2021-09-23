@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -8,23 +8,16 @@ import { User } from '../models/user';
 })
 export class LoginService {
 
+  private headers = new HttpHeaders({'Content-Type': 'application/json'});
   loggedIn: boolean = false;
   
 
   constructor(private http: HttpClient) { }
 
-  private postHeaders = new HttpHeaders({ 'Access-Control-Allow-Credentials': 'true' });
-
-  login(username: String, password: String): Observable<User> {
-    return this.http.post<User>(`http://localhost:8081/login`,{
-      'username': username,
-      'password': password
-    }, {
-      withCredentials: true
-    }, );
+  login(user: User): Observable<User> {
+    // console.log("Attempting login: ",user);
+    return this.http.post<User>(`http://localhost:8081/login`, user, {responseType: "json", headers: this.headers} );
   }
-
-  
 
   getUsername(): string {
     let username = localStorage.getItem("username");
