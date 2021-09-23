@@ -31,6 +31,10 @@ export class LoginService {
     }
   }
 
+  logout(){
+    this.http.post(`http://localhost:8081/logout`, "");
+  }
+
   setUsername(username: string): void {
     if(username != "Guest") {
       this.loggedIn = true;

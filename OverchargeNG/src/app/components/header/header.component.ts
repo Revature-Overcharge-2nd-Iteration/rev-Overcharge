@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.loggedIn = this.isGuest();
     this.loginServ.setUsername('Guest');
+    this.loginServ.logout();
     this.responseMessage = 'Logging out';
   }
 
