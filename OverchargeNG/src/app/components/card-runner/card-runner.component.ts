@@ -64,7 +64,6 @@ export class CardrunnerComponent implements OnInit {
     this.user_id = Number(window.localStorage.getItem("userID"));
     this.deck_id = Number(window.localStorage.getItem("deckID"));
 
-    console.log("this.deck_id: ["+this.deck_id+"]");
     this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
         this.creator_id = Response1.creator.id;
@@ -74,7 +73,7 @@ export class CardrunnerComponent implements OnInit {
         this.CurrentCard = this.Cards[this.crnt];
         this.number_total = this.Cards.length;
         this.Feedbacks = Response1.feedback;
-        this.schttp.getStudiedCardsByUser(this.user_id).subscribe(
+        this.schttp.getStudiedCardsByUser(11).subscribe(
           (Response2)=>{
             this.array = Response2;
             console.log(this.Feedbacks);

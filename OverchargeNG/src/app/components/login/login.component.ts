@@ -1,6 +1,5 @@
 import { Component, Injectable, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -21,14 +20,9 @@ export class LoginComponent implements OnInit {
   responseAttempted: boolean = false;
   loginPoints: boolean = false;
 
-  showErrorMessage: boolean = false;
-  errorMessage: string = '';
-
   constructor(private loginServ: LoginService, private modalServ: NgbModal, private router: Router) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   open(){
     this.modalRef = this.modalServ.open(this.modalContent);
@@ -45,15 +39,37 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    this.loginServ.login(this.username, this.password).subscribe((data: User) =>{
-      this.router.navigateByUrl("/library");
-    },  
-    (err: HttpErrorResponse) => {
-      console.log(err);
-      this.showErrorMessage = true;
-      this.errorMessage = err.error.message
+    console.log(this.username);
 
-    });
+    let loginAttempt = new User(0 , this.username, this.password, 0 , 100);
+    this.loginServ.login(loginAttempt).subscribe(
+      (response) => {
+        if (response) {
+          const user = response;
+          console.log(user);
+
+          if(user.objectives.length != 0){
+            this.loginPoints = true;
+          }
+
+          this.loginServ.setUsername(user.username);
+          console.log("logged in: ", user.username);
+          this.router.navigateByUrl("/library");
+          this.setResponseMessage("success");
+          window.localStorage.setItem("userID",String(user.id));
+          // window.setTimeout(() => {
+          //   location.reload();
+          // }, 1500);
+        } else {
+          console.log("Invalid login...");
+          this.setResponseMessage("fail");
+        }
+      },
+      (error) => {
+        console.log("Login Error...");
+        this.setResponseMessage("error");
+      }
+    )
   }
 
   setResponseMessage(input: string) {
