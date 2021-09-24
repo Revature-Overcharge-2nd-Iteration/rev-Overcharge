@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,6 +23,8 @@ import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.repositories.CardRepo;
 import com.revature.overcharge.repositories.DeckRepo;
 
+
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
