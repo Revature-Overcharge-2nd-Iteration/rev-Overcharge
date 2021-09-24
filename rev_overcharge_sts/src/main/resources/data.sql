@@ -2,7 +2,7 @@
 -- Users
 insert into users (id, username, password, points, role, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1, 1629315831000);
 insert into users (id, username, password, points, role, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 2, 1629315706000);
-insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1, 1629315843000);
+insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 2, 1629315843000);
 insert into users (id, username, password, points, role, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 2, 1629315937000);
 insert into users (id, username, password, points, role, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1, 1629315680000);
 insert into users (id, username, password, points, role, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1, 1629315786000);
