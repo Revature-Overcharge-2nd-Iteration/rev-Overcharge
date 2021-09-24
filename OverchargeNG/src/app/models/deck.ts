@@ -19,7 +19,7 @@ export class Deck {
     creator: User,
     title: string,
     createdOn: number,
-    status:number,
+    status: number,
     cards: Array<Card>,
     avgRating?: number,
     feedback?: Array<Feedback>
