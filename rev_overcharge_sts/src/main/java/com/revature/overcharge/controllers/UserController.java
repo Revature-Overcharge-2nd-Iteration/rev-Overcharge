@@ -21,7 +21,7 @@ import com.revature.overcharge.beans.User;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 public class UserController {
 
@@ -59,6 +59,21 @@ public class UserController {
 
 	@PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
 	public User login(@RequestBody User u) {
+		HttpSession session = request.getSession(true);
+		
+		if (session.getAttribute("currentUser") != null) {
+			System.out.println("you're logged in already");
+			return (User) session.getAttribute("currentUser");
+		}
+		
+		session.setAttribute("currentUser", us.login(u));
+		
 		return us.login(u);
+	}
+	
+	@PostMapping(value = "/logout")
+	public void logout() {
+		HttpSession session = request.getSession(false);
+		session.invalidate();
 	}
 }

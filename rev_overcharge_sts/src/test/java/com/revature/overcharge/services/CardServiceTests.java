@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,9 +19,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.User;
 import com.revature.overcharge.repositories.CardRepo;
 import com.revature.overcharge.repositories.DeckRepo;
-
 
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
@@ -105,7 +105,7 @@ public class CardServiceTests {
 		
 		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
 		Mockito.when(cr.save(card)).thenReturn(new Card(1, null, "whats your lastName", "my name is Elhewazy", null));
-		card = cs.updateCard(1, card);
+		card = cs.updateCard(card);
 		Assertions.assertEquals("whats your lastName", card.getQuestion());
 		Assertions.assertEquals("my name is Elhewazy", card.getAnswer());
 	}

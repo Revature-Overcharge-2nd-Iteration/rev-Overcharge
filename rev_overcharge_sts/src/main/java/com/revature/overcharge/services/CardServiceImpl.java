@@ -22,10 +22,10 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     CardRepo cr;
-    
+
     @Autowired
     DeckRepo dr;
-
+    
     @Autowired
     ObjectiveService os;
     
@@ -38,8 +38,11 @@ public class CardServiceImpl implements CardService {
             log.warn("Card id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
-            c.setDeck(ds.getDeck(deckId));
+        	Deck d = ds.getDeck(deckId);
+            c.setDeck(d);
             c.setCreatedOn(new Date().getTime());
+            d.setStatus(1);
+            dr.save(d);
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
             return c;
