@@ -46,7 +46,7 @@ public class CardController {
     @PutMapping(value = "/cards", consumes = "application/json",
             produces = "application/json")
     public Card updateCard(@RequestBody Card c) {
-        return cs.updateCard(c);
+        return cs.updateCard(1, c);
     }
     
     @DeleteMapping(value = "/cards/{id}")
