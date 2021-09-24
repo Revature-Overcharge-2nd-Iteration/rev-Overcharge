@@ -31,4 +31,5 @@ export class CardService {
     console.log("deleteCard()");
     return this.http.delete<boolean>('http://localhost:8081/cards/' + id);
   }
+
 }

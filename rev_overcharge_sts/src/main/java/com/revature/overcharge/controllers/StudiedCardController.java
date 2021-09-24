@@ -17,7 +17,7 @@ import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.StudiedCardId;
 import com.revature.overcharge.services.StudiedCardService;
 
-@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class StudiedCardController {
 

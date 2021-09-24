@@ -12,7 +12,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
 import { identifierModuleUrl } from '@angular/compiler';
 
-
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
@@ -169,7 +168,6 @@ saveDeck(deckArray: Array<Card>) {
   for(let i = 0; i < this.deletedCards.length; i++) {
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
-
 }
 
 getDeckId(id: number) {
