@@ -60,17 +60,29 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card updateCard(Card newCard) {
-        if (cr.existsById(newCard.getId())) {
-        	Deck d = ds.getDeck(newCard.getDeck().getId());
-            d.setStatus(1);
-            dr.save(d);
-            return cr.save(newCard);
-        } else {
-            log.warn("Card id is invalid for update");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-    }
+	public Card updateCard(int deckId, Card newCard) {
+		
+		if (dr.existsById(deckId)) {
+			if (cr.existsById(newCard.getId())) {
+				
+				Deck objDeck = ds.getDeck(deckId);
+				
+				newCard.setDeck(ds.getDeck(deckId));
+				
+				Card objNewCard = cr.save(newCard);
+
+                objDeck.setStatus(1);
+                dr.save(objDeck);
+
+				return objNewCard;
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 
     @Override
     public boolean deleteCard(int id) {
