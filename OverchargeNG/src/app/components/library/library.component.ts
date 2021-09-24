@@ -4,6 +4,7 @@ import { Tag } from 'src/app/models/tag';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
+import { User } from 'src/app/models/user';
 import { CardService } from 'src/app/services/card.service';
 import { FeedbackService } from '../../services/feedback.service';
 import { Feedback } from '../../models/feedback';
@@ -25,6 +26,7 @@ export class LibraryComponent implements OnInit {
   curDeck: Deck;
   addedCards: Card[] = [];
   deletedCards: number[] = [];
+  role: any;
 
   //For Feedback
   feedbackList: Feedback[] = [];
@@ -45,6 +47,7 @@ export class LibraryComponent implements OnInit {
       this.displayAllDecks();
       this.getAllTags();
       this.curUser = localStorage.getItem("username");
+      this.role = localStorage.getItem("role");
   }
 
 
@@ -155,5 +158,11 @@ getDeckId(id: number) {
 
     this.displayFeedback = true;
 
-  }
+}
+
+approveOrDenyDeck(deckID: number, status: number, role: number) {
+  this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe()
+  console.log("you clicked me")
+}
+
 }

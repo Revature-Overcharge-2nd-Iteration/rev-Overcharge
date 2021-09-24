@@ -50,4 +50,8 @@ export class HttpDeckService {
   }, { headers: this.postHeaders });
   }
 
+  approveOrDenyDeck(id: number, status: number, role: number): Observable<Deck>{
+    return this.http.patch<Deck>(`http://localhost:8081/decks/${id}/${status}/${role}`, { headers: this.postHeaders });
+  }
+
 }
