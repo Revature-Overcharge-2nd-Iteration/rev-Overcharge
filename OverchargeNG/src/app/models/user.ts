@@ -19,6 +19,5 @@ export class User {
         this.points = points || 0;
         this.role = role;
         this.lastLogin = lastLogin || 0;
-
     }
 }
