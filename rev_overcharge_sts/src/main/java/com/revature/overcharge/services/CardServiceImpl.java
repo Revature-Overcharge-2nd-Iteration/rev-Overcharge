@@ -64,16 +64,14 @@ public class CardServiceImpl implements CardService {
 		
 		if (dr.existsById(deckId)) {
 			if (cr.existsById(newCard.getId())) {
-				
 				Deck objDeck = ds.getDeck(deckId);
-				
 				newCard.setDeck(ds.getDeck(deckId));
 				
 				Card objNewCard = cr.save(newCard);
-
                 objDeck.setStatus(1);
                 dr.save(objDeck);
-
+				
+							
 				return objNewCard;
 			} else {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
