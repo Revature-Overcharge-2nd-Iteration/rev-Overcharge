@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.repositories.CardRepo;
+import com.revature.overcharge.repositories.DeckRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
@@ -32,6 +31,12 @@ public class CardServiceTests {
 	public CardService cs;
 	@MockBean
 	CardRepo cr;
+	
+	@Autowired
+	public DeckService ds;
+//	
+//	@MockBean
+//	DeckRepo dr;
 
 	@Test
 	@Transactional
@@ -174,5 +179,15 @@ public class CardServiceTests {
 			cs.getCardsByDeckId(1);
 		});
 	}
+	
+//	@Test
+//	@Transactional
+//	void getDeckIdFailureTest() {
+//		Mockito.when(dr.existsById(1)).thenReturn(false);
+//		assertThrows(ResponseStatusException.class, () ->{
+//			ds.getDeck(1);
+//		});
+//		
+//	}
 
 }

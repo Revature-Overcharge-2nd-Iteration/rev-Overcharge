@@ -58,6 +58,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
 	public Card updateCard(int deckId, Card newCard) {
+		
 		if (dr.existsById(deckId)) {
 			if (cr.existsById(newCard.getId())) {
 				
@@ -65,6 +66,7 @@ public class CardServiceImpl implements CardService {
 				Deck objDeck = ds.getDeck(deckId);
 				
 				newCard.setDeck(ds.getDeck(deckId));
+				
 				
 				Card objNewCard = cr.save(newCard);
 
