@@ -5,8 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,10 +28,7 @@ import com.revature.overcharge.services.DeckService;
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 public class DeckController {
-	private static final Logger log = LoggerFactory.getLogger(DeckController.class);
 
-	
-	
 	@Autowired
 	DeckService ds;
 
@@ -55,13 +50,9 @@ public class DeckController {
 	}
 
 	@GetMapping(value = "/decks/{id}")
-    public Deck getDeck(@PathVariable("id") int id) {
-    	log.trace("getDeck(): id: ["+ id + "]");
-    	Deck objRetDeck = ds.getDeck(id);
-    	log.trace("getDeck(): objRetDeck: ["+ objRetDeck.toString() + "]");
-    	
-        return objRetDeck;
-    }
+	public Deck getDeck(@PathVariable("id") int id) {
+		return ds.getDeck(id);
+	}
 
 	@GetMapping(value = "/decks")
 	public List<Deck> getAllDecks() {
@@ -91,15 +82,13 @@ public class DeckController {
 		return ds.updateDeckAndCards(newDeck);
 	}
 
-	@PatchMapping(value = "/decks/{id}/{status}", produces = "application/json" )
-	public ResponseEntity<Object> deckApproval(@PathVariable int id, @PathVariable int status) {
+	@PatchMapping(value = "/decks/{id}/{status}/{role}", produces = "application/json" )
+	public ResponseEntity<Object> deckApproval(@PathVariable int id, @PathVariable int status, @PathVariable int role) {
 
 		try {
-			HttpSession session = request.getSession(false);
 
-			User user = (User) session.getAttribute("currentUser");
 
-			if (session == null || user.getRole() != 1) {
+			if (role != 1) {
 				return ResponseEntity.status(400).body("You are not an admin!");
 			}
 			

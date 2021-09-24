@@ -178,12 +178,13 @@ public class DeckServiceImpl implements DeckService {
 		
 		Deck d = dr.findById(id);
 		
+		System.out.println(d);
 		if(d.getStatus() != 1) {
 			throw new AlreadyApprovedException("You can't change the status of a deck that isn't pending");
 		}
 		
 		d.setStatus(status);
-		return d;
+		return dr.save(d);
 	}
 
 	@Override

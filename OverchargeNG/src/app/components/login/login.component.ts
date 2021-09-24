@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   responseMessage: string = '';
   responseAttempted: boolean = false;
   loginPoints: boolean = false;
+  role: number;
 
   constructor(private loginServ: LoginService, private modalServ: NgbModal, private router: Router) { }
 
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
 
     console.log(this.username);
 
-    let loginAttempt = new User(0 , this.username, this.password, 0 , 100);
+    let loginAttempt = new User(0 , this.username, this.password, 0, 2, 100);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
         if (response) {
@@ -52,8 +53,10 @@ export class LoginComponent implements OnInit {
             this.loginPoints = true;
           }
 
-          this.loginServ.setUsername(user.username);
+          this.loginServ.setUsername(user.username, user.role);
           console.log("logged in: ", user.username);
+          this.role = user.role;
+          console.log("role: ", user.role);
           this.router.navigateByUrl("/library");
           this.setResponseMessage("success");
           window.localStorage.setItem("userID",String(user.id));

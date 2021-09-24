@@ -146,7 +146,7 @@ export class CreateDeckComponent implements OnInit {
     this.userHttp.getUserById(Number(localStorage.getItem("userID"))).subscribe(
       (response) => {
         this.user = response;
-        this.deck = new Deck(0, this.user,this.title, 0, this.dynamicArrayCard);
+        this.deck = new Deck(0, this.user,this.title, 0, 1, this.dynamicArrayCard);
       }
     )
   }
