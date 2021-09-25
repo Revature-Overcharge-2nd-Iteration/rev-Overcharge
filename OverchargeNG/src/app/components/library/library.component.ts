@@ -10,6 +10,7 @@ import { FeedbackService } from '../../services/feedback.service';
 import { Feedback } from '../../models/feedback';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-library',
@@ -53,7 +54,7 @@ export class LibraryComponent implements OnInit {
 
 closeResult = '';
 
-constructor(private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
+constructor(private router: Router, private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
 
 addRow() {
   this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
@@ -161,8 +162,10 @@ getDeckId(id: number) {
 }
 
 approveOrDenyDeck(deckID: number, status: number, role: number) {
-  this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe()
-  console.log("you clicked me")
+  this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe();
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate(["/library"]);
+    });
 }
 
 }
