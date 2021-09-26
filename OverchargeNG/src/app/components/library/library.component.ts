@@ -165,8 +165,5 @@ openFeedback(deckID: number, deckName: string) {
 
 approveOrDenyDeck(deckID: number, status: number, role: number) {
   this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe()
-
-  // note: canmake change here to remove approve and deny button. couldnt figure it out
-
 }
 }
