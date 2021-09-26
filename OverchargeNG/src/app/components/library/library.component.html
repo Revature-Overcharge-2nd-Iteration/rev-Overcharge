@@ -29,6 +29,7 @@
             </tr>
           </thead>
           <tbody>
+
             <tr *ngFor="let deck of deckList">
               <ng-container *ngIf="role == '2'">
                 <ng-container *ngIf="deck.status == 2">
@@ -55,7 +56,14 @@
                       Feedback</button>
                   </td>
                   <td *ngIf="role == '1'">
-                    <button class="btn btn-lg btn-outline-primary" (click)="approveOrDenyDeck(deck.id, 2, 1)">
+                    <button
+                    [ngClass]="{
+                      'btn': true,
+                      'btn-danger': formComponentShouldBeDisplayed,
+                      'btn-success': !formComponentShouldBeDisplayed,
+                      'mt-5': true
+                    }"
+                     class="btn btn-lg btn-outline-primary" (click)="approveOrDenyDeck(deck.id, 2, 1)">
                       Approve
                     </button>
                     <button class="btn btn-lg btn-outline-primary" (click)="approveOrDenyDeck(deck.id, 3, 1)">

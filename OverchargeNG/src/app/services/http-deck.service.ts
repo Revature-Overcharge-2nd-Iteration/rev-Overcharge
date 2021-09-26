@@ -7,6 +7,9 @@ import { Deck } from '../models/deck';
   providedIn: 'root'
 })
 export class HttpDeckService {
+  splice(index: any, arg1: number) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 

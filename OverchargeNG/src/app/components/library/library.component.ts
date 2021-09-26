@@ -28,6 +28,9 @@ export class LibraryComponent implements OnInit {
   deletedCards: number[] = [];
   role: any;
 
+  //to hide deck when approved/denied
+  formComponentShouldBeDisplayed: boolean = true;
+
   //For Feedback
   feedbackList: Feedback[] = [];
   displayFeedback: boolean = false;
@@ -162,7 +165,8 @@ openFeedback(deckID: number, deckName: string) {
 
 approveOrDenyDeck(deckID: number, status: number, role: number) {
   this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe()
-  console.log("you clicked me")
-}
 
+  // note: canmake change here to remove approve and deny button. couldnt figure it out
+
+}
 }

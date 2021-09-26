@@ -1,166 +1,68 @@
 package com.revature.overcharge.steps;
 
-import java.time.Duration;
-
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.revature.overcharge.pages.LoginModal;
-import com.revature.overcharge.pages.PageFrame;
-import com.revature.overcharge.runners.LoginRunner;
-
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class LoginSteps {
-	
-	private static WebDriver driver = LoginRunner.driver;
-	private static WebDriverWait wait = new WebDriverWait(driver, 10);
-	private static PageFrame page = LoginRunner.page;
-	private static LoginModal modal = LoginRunner.modal;
+	@Given("I am at the home page")
+	public void i_am_at_the_home_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Given("^User has nagivated to the website for login$")
-    public void user_has_nagivated_to_the_website_for_login() throws Throwable {
-        page.navigateTo(page.getURL());
-        Thread.sleep(2000);
-    }
+	@When("I click on Guest button")
+	public void i_click_on_guest_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Given("^User opens the login modal$")
-    public void user_opens_the_login_modal() throws Throwable {
-        page.loginNav.click();
-        wait.withTimeout(Duration.ofSeconds(1));
-        Thread.sleep(2000);
-    }
+	@Then("I should be able to click on {string}")
+	public void i_should_be_able_to_click_on(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Given("^User is logged in$")
-    public void user_is_logged_in() throws Throwable {
-        user_opens_the_login_modal();
-        user_logs_in_with_something_credentials("valid");
-        username_is_displayed();
-        
-    }
+	@When("I click on {string}")
+	public void i_click_on(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @When("^User clicks \"([^\"]*)\" for login$")
-    public void user_clicks_something_for_login(String button) throws Throwable {
-        switch (button) {
-        case "Sidenav Login":
-        	page.loginNav.click();
-        	break;
-        case "Header Login":
-        	page.menuBtn.click();
-        	wait.withTimeout(Duration.ofSeconds(1));
-        	page.loginHeader.click();
-        	break;
-        case "Logout":
-        	page.menuBtn.click();
-        	wait.withTimeout(Duration.ofSeconds(1));
-        	page.logoutBtn.click();
-        	break;
-        case "Login":
-        	modal.loginButton.click();
-        	Thread.sleep(2000);
-        	user_clicks_something_for_login("Exit");
-        	break;
-        case "Exit":
-        	modal.exitButton.click();
-        	break;
-        }
-        Thread.sleep(2000);
-    }
+	@Then("I should be able to input my Info")
+	public void i_should_be_able_to_input_my_info() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @When("^User logs in with \"([^\"]*)\" credentials$")
-    public void user_logs_in_with_something_credentials(String credType) throws Throwable {
-        String username = "";
-        String password = "";
-        
-    	switch(credType) {
-        case "valid":
-        	username = "user";
-        	password = "pass";
-        	break;
-        case "invalid":
-        	username = "username";
-        	password = "password";
-        	break;
-        case "error":
-        	// Attempted login with empty strings will produce an error
-        	break;
-        }
-    	modal.usernameInput.sendKeys(username);
-    	modal.passwordInput.sendKeys(password);
-    	user_clicks_something_for_login("Login");
-    	Thread.sleep(2000);
-    	
-    }
+	@When("I type in the username input value {string}")
+	public void i_type_in_the_username_input_value(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @When("^User produces a login error$")
-    public void user_produces_a_login_error() throws Throwable {
-    	user_logs_in_with_something_credentials("error");
-    }
+	@When("I type in the password input value {string}")
+	public void i_type_in_the_password_input_value(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Then("^Login modal is displayed$")
-    public void login_modal_is_displayed() throws Throwable {
-    	ExpectedConditions.visibilityOf(modal.loginModal);
-    }
+	@When("I click the Login Button")
+	public void i_click_the_login_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Then("^Modal displays \"([^\"]*)\" message$")
-    public void modal_displays_something_message(String msgType) throws Throwable {
-    	Thread.sleep(2000);
-        String message = "";
-        
-        switch (msgType) {
-        case "Success":
-        	message = "Success! Logging in...";
-        	break;
-        case "Failure":
-        	message = "Incorrect credentials";
-        	break;
-        case "Error":
-        	message = "Login Error...";
-        	break;
-        }
-        
-        ExpectedConditions.textToBePresentInElement(modal.responseMessage, message);
-    }
+	@Then("I should recieve points and brought to the Library page")
+	public void i_should_recieve_points_and_brought_to_the_library_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-    @Then("^Username is removed$")
-    public void username_is_removed() throws Throwable {
-        ExpectedConditions.textToBePresentInElement(page.menuBtn, "Guest");
-    }
-    
-    @Then("^Modal closes$")
-    public void modal_closes() throws Throwable {
-        ExpectedConditions.invisibilityOf(modal.loginModal);
-    }
-
-    @And("^Username is displayed$")
-    public void username_is_displayed() throws Throwable {
-        ExpectedConditions.textToBePresentInElement(page.menuBtn, "user");
-    }
-
-    @And("^Login buttons disappear$")
-    public void login_buttons_disappear() throws Throwable {
-        ExpectedConditions.invisibilityOf(page.loginNav);
-        ExpectedConditions.invisibilityOf(page.loginHeader);
-        ExpectedConditions.visibilityOf(page.logoutBtn);
-        
-        user_clicks_something_for_login("Logout");
-    }
-
-    @And("^User is redirected$")
-    public void user_is_redirected() throws Throwable {
-        ExpectedConditions.urlToBe("http://localhost:4200/library");
-    }
-
-    @And("^Login buttons appear$")
-    public void login_buttons_appear() throws Throwable {
-        ExpectedConditions.visibilityOf(page.loginNav);
-        ExpectedConditions.visibilityOf(page.loginHeader);
-        ExpectedConditions.invisibilityOf(page.logoutBtn);
-    }
+	@Then("A message display {string}")
+	public void a_message_display(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
 }
