@@ -1,5 +1,7 @@
 package com.revature.overcharge.steps;
 
+import org.openqa.selenium.JavascriptExecutor;
+
 import org.openqa.selenium.WebDriver;
 
 import com.revature.overcharge.pages.CardTraversal;
@@ -94,7 +96,13 @@ public class CardTraversalSteps {
 	@Then("User enters a rating to submit")
 	public void user_enters_a_rating_to_submit() throws InterruptedException {
 		cardTraversal.star5.click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
+		   js.executeScript("window.scrollBy(0,350)", "");
+		   
+		   Thread.sleep(5000);
+		
 		cardTraversal.submitrating.click();
 		Thread.sleep(3000);
 	}
