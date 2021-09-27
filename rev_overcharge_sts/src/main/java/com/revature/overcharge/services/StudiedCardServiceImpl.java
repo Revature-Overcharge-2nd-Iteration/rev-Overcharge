@@ -49,13 +49,13 @@ public class StudiedCardServiceImpl implements StudiedCardService {
     @Override
     public List<StudiedCard> getStudiedCards(Integer userId, Integer cardId) {
         List<StudiedCard> studiedCards;
-        if (userId != null) {
-            if (cardId != null) {
+        if (userId != 0) {
+            if (cardId != 0) {
                 studiedCards = scr.getByUserIdAndCardId(userId, cardId);
             } else {
                 studiedCards = scr.getByUserId(userId);
             }
-        } else if (cardId != null) {
+        } else if (cardId != 0) {
             studiedCards = scr.getByCardId(cardId);
         } else {
             studiedCards = (List<StudiedCard>) scr.findAll();
