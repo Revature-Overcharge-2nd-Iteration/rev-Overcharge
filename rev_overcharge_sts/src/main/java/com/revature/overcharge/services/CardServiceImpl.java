@@ -46,7 +46,6 @@ public class CardServiceImpl implements CardService {
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
             
-            Deck d = ds.getDeck(deckId);
             if(d.getStatus()!= 1) {
             d.setStatus(1);
             dr.save(d);
