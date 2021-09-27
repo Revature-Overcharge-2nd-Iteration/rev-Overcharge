@@ -56,5 +56,5 @@ public class CardController {
 	public boolean deleteCard(@PathVariable("id") int id) {
 		return cs.deleteCard(id);
 	}
-
+ 
 }

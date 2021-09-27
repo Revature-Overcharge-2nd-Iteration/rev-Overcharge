@@ -24,6 +24,7 @@ public class RatingController {
 
 	private static final Logger log = LoggerFactory.getLogger(RatingController.class);
 
+	
 	@Autowired
 	RatingService rs;
 

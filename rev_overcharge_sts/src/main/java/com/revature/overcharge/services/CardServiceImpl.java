@@ -20,6 +20,7 @@ public class CardServiceImpl implements CardService {
 
     private static final Logger log = LoggerFactory.getLogger(CardServiceImpl.class);
 
+    
     @Autowired
     CardRepo cr;
     
@@ -114,7 +115,7 @@ public class CardServiceImpl implements CardService {
             log.warn("There are no cards for the given deck id");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
+ 
     }
 
     @Override
