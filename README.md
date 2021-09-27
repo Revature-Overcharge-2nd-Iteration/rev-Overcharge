@@ -1,9 +1,9 @@
 # Rev-Overcharge
-Project 3 for 210607 Reston Batch.
+Project 3 for 210712 Bach Batch.
 
 ## Project Description
 
-Revature Overcharge is a full-stack web applicaiton. It is a study system for Revature employees. Users of the application will be able to create their own flashcard sets and use flashcard sets created by other users to study. When running through a flashcard set a user will be able to type an answer before viewing the answer to a flashcard, giving them the ability to compare their answer with the real one. Flashcards can be marked as studied to prevent requestioning. Flashcard sets can be rated. A timer is also provided to coordinate study and break sessions. Daily and weekly objectives are measured to award points to users.
+Revature Overcharge is a full-stack web applicaiton. It is a study system for Revature employees. Users of the application will be able to create their own flashcard sets, categorize flashcard sets, and use flashcard sets created by other users to study. When running through a flashcard set a user will be able to type an answer before viewing the answer to a flashcard, giving them the ability to compare their answer with the real one. Flashcards can be marked as studied to prevent requestioning. Flashcard sets can be rated and user feedback can be left for the flashcard set creator. A timer is also provided to coordinate study and break sessions. Daily and weekly objectives are measured to award points to users.
 
 
 ## Technologies Used
@@ -24,23 +24,25 @@ Testing technologies:
 * Postman
 * Selenium
 * Cucumber
+* TestNG
 
 ## Features
 
 List of features ready
 * Login functionality
 * Study flashcard sets by answering flashcards and marking cards as studied
-* Create, edit, and rate flashcard sets
+* Create and edit flashcard sets
+* Admin role with ability to approve and deny pending flashcard sets
+* Categorize and filter flashcard sets depending on related tech stack
+* View flashcard sets in order of popularity
+* User rating and feedback for studied decks
 * Timer functionality including modes and custom time
 * Objectives displayed and measured
 
 To-Do List:
-* Ranked flashcard sets on the home page.
 * User profile page to 
     - display and edit profile
     - display favorite flashcard set, and public stats for contributions
-* Admin authorization of new flash card sets
-* Categorize flashcard sets by tech stack
 
 ## Getting Started
 
@@ -75,4 +77,4 @@ To demo this application, you can use the following login information:
 
 ## Contributors
 
-[Ahmed Elhewazy](https://github.com/elhewazy), [Cao Mai](https://github.com/caocmai), [Chris Nowalk](https://github.com/ChristopherNowalk), [Deyondre Beale](https://github.com/DeyondreBeale), [Dwayne Fraser](https://github.com/dwayne-revature), [Jenine Clay](https://github.com/jeninec), [Joe La Macchia](https://github.com/JosephLamacchia), [Jordan Hupp](https://github.com/jhupprevature), [Jugue Nkuzu](https://github.com/juguenkuzu), [Kevin Leader](https://github.com/kileader), [Nicolis Miller](https://github.com/nicxm), [Sean Guo](https://github.com/SeanGRev), [Stuart Kruze](https://github.com/stukruze), [Tony Bahner](https://github.com/abahner)
+[Colten Murray](https://github.com/ColtenMurray),([Ahmed Elhewazy](https://github.com/elhewazy), [Cao Mai](https://github.com/caocmai), [Chris Nowalk](https://github.com/ChristopherNowalk), [Deyondre Beale](https://github.com/DeyondreBeale), [Dwayne Fraser](https://github.com/dwayne-revature), [Jenine Clay](https://github.com/jeninec), [Joe La Macchia](https://github.com/JosephLamacchia), [Jordan Hupp](https://github.com/jhupprevature), [Jugue Nkuzu](https://github.com/juguenkuzu), [Kevin Leader](https://github.com/kileader), [Nicolis Miller](https://github.com/nicxm), [Sean Guo](https://github.com/SeanGRev), [Stuart Kruze](https://github.com/stukruze), [Tony Bahner](https://github.com/abahner)
