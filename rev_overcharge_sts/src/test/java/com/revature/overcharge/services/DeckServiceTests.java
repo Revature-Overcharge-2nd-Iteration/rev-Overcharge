@@ -18,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.User;
+import com.revature.overcharge.exception.AlreadyApprovedException;
+import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.repositories.CardRepo;
 import com.revature.overcharge.repositories.DeckRepo;
 
@@ -189,7 +191,7 @@ public class DeckServiceTests {
 	
 	@Test
 	@Transactional
-	void approvingDeck() {
+	void approvingDeck() throws BadParameterException, AlreadyApprovedException {
 		User user = new User("ahmed", "pass", null, 2, null);
 		//User admin = new User("ahmed", "pass", null, 1, null);
 		
@@ -200,7 +202,8 @@ public class DeckServiceTests {
 		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
 		Mockito.when(dr.save(deck)).thenReturn(new Deck( user, "new deck", 1, null, card, null, null));
 		
-		deck.setStatus(2);
+		//deck.setStatus(2);
+		ds.deckApproval( deck.getId(),2);
 		System.out.println(deck.getStatus());
 		
 		Assertions.assertEquals(2, deck.getStatus());
@@ -209,7 +212,7 @@ public class DeckServiceTests {
 	
 	@Test
 	@Transactional
-	void denyingDeck() {
+	void denyingDeck() throws BadParameterException, AlreadyApprovedException {
 		User user = new User("ahmed", "pass", null, 2, null);
 		//User admin = new User("ahmed", "pass", null, 1, null);
 		
@@ -220,7 +223,8 @@ public class DeckServiceTests {
 		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
 		Mockito.when(dr.save(deck)).thenReturn(new Deck( user, "new deck", 1, null, card, null, null));
 		
-		deck.setStatus(3);
+		
+		ds.deckApproval( deck.getId(),3);
 
 		
 		Assertions.assertEquals(3, deck.getStatus());
