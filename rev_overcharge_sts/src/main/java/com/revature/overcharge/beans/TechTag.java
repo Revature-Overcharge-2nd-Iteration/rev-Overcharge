@@ -1,6 +1,7 @@
 package com.revature.overcharge.beans;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -74,6 +75,27 @@ public class TechTag {
 	
 	public void addDeck(Deck deck) {
 		this.decks.add(deck);
+	}
+	
+	
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, tag);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TechTag other = (TechTag) obj;
+		return id == other.id && Objects.equals(tag, other.tag);
 	}
 
 
