@@ -17,10 +17,11 @@ public abstract class Runner {
 	@BeforeClass
 	public static void setup() {
 		// Input your filepath for your WebDriver executable
-		String filePath = "C:/Users/david/Desktop/Chrome driver/chromedriver.exe";
+		String filePath = "C:/SeleniumStuff/chromedriver_win32/chromedriver.exe";
+
 		
 		// Comment out the setup that you do not use.
-		driver = chromeSetup(filePath+"/chromedriver.exe");
+		driver = chromeSetup(filePath);
 //		driver = firefoxSetup(filePath+"/geckodriver.exe");
 		
 		

@@ -21,10 +21,10 @@ public class CardTraversal {
 	@FindBy(id = "loginButton")
 	public WebElement loginButton;
 	
-	@FindBy(id = "libararyNavLink")
+	@FindBy(id = "libraryNavLink")
 	public WebElement library;
 	
-	@FindBy(id = "cardrunner")
+	@FindBy(xpath = "/html/body/app-root/mat-drawer-container/mat-drawer-content/app-library/div/div[2]/div[1]/div[1]/table/tbody/tr[3]/td[5]/button")
 	public WebElement cardrunner;
 	
 	@FindBy(id = "nextquestion")

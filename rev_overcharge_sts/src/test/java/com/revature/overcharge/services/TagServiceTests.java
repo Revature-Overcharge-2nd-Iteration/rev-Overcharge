@@ -2,7 +2,6 @@ package com.revature.overcharge.services;
 
 import static org.mockito.ArgumentMatchers.any;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -10,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +33,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.TechTag;
@@ -45,12 +44,9 @@ import com.revature.overcharge.repositories.TagRepo;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 @ExtendWith(MockitoExtension.class)
-public class TagServiceTests {
+public class TagServiceTests {	
 
-	
-	
 	@Mock
 	TagRepo tr;
 	
@@ -59,7 +55,7 @@ public class TagServiceTests {
 	
 	@Mock
 	RatingServiceImpl rs;
-	
+
 	@InjectMocks
 	public DeckServiceImpl ds;
 	
@@ -68,7 +64,6 @@ public class TagServiceTests {
 	
 	private AutoCloseable closeable;
 
-	
 	@BeforeEach
 	void setUp() throws Exception {
 		closeable = MockitoAnnotations.openMocks(this);
@@ -78,9 +73,6 @@ public class TagServiceTests {
 	void tearDown() throws Exception {
 		 closeable.close();
 	}
-
-
-	
 
 //	@BeforeEach
 //	public void setUp() throws Exception {
@@ -93,9 +85,7 @@ public class TagServiceTests {
 //		this.ds = new DeckServiceImpl(dr, tr);
 //		
 //	}
-	
-	
-	
+
 	@Test
 	public void test_getAllTags_positive() throws SQLException {
 
@@ -177,7 +167,4 @@ public class TagServiceTests {
 		
 		assertEquals(deck, actual);
 	}
-	
-	
-
 }
