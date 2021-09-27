@@ -10,9 +10,9 @@ export class HttpUserService {
 
   constructor(private http: HttpClient) { }
 
-  private postHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User> ('http://localhost:8081/users/' + id);
+    return this.http.get<User> ('http://localhost:8081/users/' + id,{responseType: "json", headers: this.headers} );
   }
 }

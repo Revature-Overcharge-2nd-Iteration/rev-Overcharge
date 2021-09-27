@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl("/library");
           this.setResponseMessage("success");
           window.localStorage.setItem("userID",String(user.id));
+          console.log("UserId: " + window.localStorage.getItem("userID") + "at login" );
+      
           // window.setTimeout(() => {
           //   location.reload();
           // }, 1500);

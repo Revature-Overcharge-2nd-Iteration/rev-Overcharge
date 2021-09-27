@@ -22,6 +22,7 @@ import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.UserService;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
 	@Autowired
@@ -35,8 +36,8 @@ public class UserController {
 		return us.addUser(u);
 	}
 
-	@GetMapping(value = "/users/{id}")
-	public User getUser(@PathVariable("id") int id) {
+	@GetMapping(value = "/users/{id}",produces = "application/json")
+	public User getUser(@PathVariable int id) {
 		return us.getUser(id);
 	}
 

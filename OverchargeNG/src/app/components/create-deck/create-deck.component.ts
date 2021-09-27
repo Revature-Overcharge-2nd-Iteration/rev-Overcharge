@@ -20,7 +20,9 @@ export class CreateDeckComponent implements OnInit {
   ngOnInit(): void {  
       //this.newDynamic = {title1: "", title2: ""};  
       //this.dynamicArrayCard.push(this.newDynamic);
+      console.log("UserId: " + window.localStorage.getItem("userID") + " at creation" );
       this.getUser();
+      this.role = localStorage.getItem("role");
       this.getAllTags(); 
   }
 
@@ -37,6 +39,8 @@ export class CreateDeckComponent implements OnInit {
   tags: Tag[] =[];
   tagIds: Number[] = [];
   cards: Card[] = [];
+  role: any;
+  curUser: any;
 
   getAllTags(){
     this.tagHttp.getAllTags().subscribe((data) =>{
@@ -110,15 +114,16 @@ export class CreateDeckComponent implements OnInit {
   }
 
   createDeck() {
-    this.getUser();
-    console.log(this.user);
+    
     if(this.title == ''){
       alert("Please give your deck a title");
     }
     else if(this.user == null){
-      alert("Please log in before creating a deck");
+      alert("Please log in before creating a deck " + " UserId: " + window.localStorage.getItem("userID") + " at creation" );
     } 
     else {
+      
+      this.getUser();
       this.deckMessage = true;
       this.deck.title = this.title;
       for(let i = 0; i < this.dynamicArrayTag.length-1; i++){

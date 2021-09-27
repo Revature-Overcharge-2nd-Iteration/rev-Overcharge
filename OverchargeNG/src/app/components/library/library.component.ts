@@ -129,11 +129,11 @@ saveDeck(deckArray: Array<Card>) {
   this.addedCards = [];
   this.updateCards = [];
   for (let i = 0; i < this.curDeck.cards.length; i++) {
-    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
-      console.log("card Added");
-      this.addedCards.push(this.curDeck.cards[i]);
-    }
-  }
+    if(this.curDeck.cards[i].question != "") {
+       console.log("saveDeck(): addedCards.push(this.curDeck.cards[" + i +"]): [" + this.curDeck.cards[i].question + "] id: [" + this.curDeck.cards[i].id + "]");
+     this.addedCards.push(this.curDeck.cards[i]);
+   }
+ }
   for(let i = 0; i < this.addedCards.length; i++){
     let id = this.curDeck.cards[i].id;
     if(id == 0){
@@ -141,7 +141,7 @@ saveDeck(deckArray: Array<Card>) {
       let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
       this.cardService.addCard(this.curDeck.id, newCard).subscribe();
     } else {
-      console.log("card id is not zero updating card. this.curDeck.id: [" + this.curDeck.id + "]");
+      console.log("card id is not zero updating card. Card Id: [" + id + "]");
       let newCard = new Card(id, this.addedCards[i].question, this.addedCards[i].answer, 0);
       this.cardService.updateCard(this.curDeck.id, newCard).subscribe();
   }
