@@ -64,6 +64,19 @@ public class DeckServiceTests {
 			ds.addDeck(deck);
 		});
 	}
+	
+	@Test
+	@Transactional
+	void Test_addDeckAndCards_InvalidId() {
+		Deck deck = new Deck();
+		deck.setId(1);
+		Mockito.when(dr.existsById(1)).thenReturn(true);
+		
+		Assertions.assertThrows(ResponseStatusException.class,()->{
+			ds.addDeckAndCards(deck);
+		});
+		
+	}
 
 	@Test
 	@Transactional
