@@ -194,7 +194,7 @@ public class CardServiceTests {
 	void getCardsByDeckIdFailure() {
 		Mockito.when(cr.existsByDeckId(1)).thenReturn(false);
 		assertThrows(ResponseStatusException.class, () ->{
-			cs.getCardsByDeckId(1);
+			cs.getCardsByDeckId(0);
 		});
 	}
 	
