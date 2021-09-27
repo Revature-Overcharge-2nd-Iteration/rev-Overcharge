@@ -230,6 +230,47 @@ public class DeckServiceTests {
 		Assertions.assertEquals(3, deck.getStatus());
 	}
 	
+	@Test
+	@Transactional
+	void test_approvingDeck_invalidInput() throws BadParameterException, AlreadyApprovedException {
+		User user = new User("ahmed", "pass", null, 2, null);
+		//User admin = new User("ahmed", "pass", null, 1, null);
+		
+		List<Card> card = new ArrayList<Card>();
+		card.add(new Card("whats your name", "my name is ahmed", null));
+		Deck deck = new Deck(user, "new deck", 1, null, card, null, null);
+
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
+		Mockito.when(dr.save(deck)).thenReturn(new Deck( user, "new deck", 1, null, card, null, null));
+		
+		
+		Assertions.assertThrows(BadParameterException.class, () -> {
+			ds.deckApproval( deck.getId(),4);
+		});
+
+	}
+	
+	@Test
+	@Transactional
+	void test_approvingDeck_AlreadyApproved() throws BadParameterException, AlreadyApprovedException {
+		User user = new User("ahmed", "pass", null, 2, null);
+		//User admin = new User("ahmed", "pass", null, 1, null);
+		
+		List<Card> card = new ArrayList<Card>();
+		card.add(new Card("whats your name", "my name is ahmed", null));
+		Deck deck = new Deck(user, "new deck", 1, null, card, null, null);
+		deck.setStatus(2);
+
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
+		Mockito.when(dr.save(deck)).thenReturn(new Deck( user, "new deck", 1, null, card, null, null));
+		
+		
+		Assertions.assertThrows(AlreadyApprovedException.class, () -> {
+			ds.deckApproval( deck.getId(),2);
+		});
+
+	}
+	
 
 	
 // 	@Test
