@@ -41,8 +41,6 @@ public class CardServiceImpl implements CardService {
         	Deck d = ds.getDeck(deckId);
             c.setDeck(d);
             c.setCreatedOn(new Date().getTime());
-            d.setStatus(1);
-            dr.save(d);
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
             
