@@ -19,39 +19,42 @@ import com.revature.overcharge.services.CardService;
 @RestController
 public class CardController {
 
-    @Autowired
-    CardService cs;
+	private static final Logger log = LoggerFactory.getLogger(CardController.class);
 
-    @PostMapping(value = "/decks/{id}/cards", consumes = "application/json",
-            produces = "application/json")
-    public Card addCard(@PathVariable("id") int deckId, @RequestBody Card c) {
-        return cs.addCard(deckId, c);
-    }
+	@Autowired
+	CardService cs;
 
-    @GetMapping(value = "/cards/{id}")
-    public Card getCard(@PathVariable("id") int id) {
-        return cs.getCard(id);
-    }
+	@PostMapping(value = "/decks/{id}/cards", consumes = "application/json", produces = "application/json")
+	public Card addCard(@PathVariable("id") int deckId, @RequestBody Card c) {
+		return cs.addCard(deckId, c);
+	}
 
-    @GetMapping(value = "/cards")
-    public List<Card> getAllCards() {
-        return cs.getAllCards();
-    }
+	@GetMapping(value = "/cards/{id}")
+	public Card getCard(@PathVariable("id") int id) {
+		return cs.getCard(id);
+	}
 
-    @GetMapping(value = "/decks/{id}/cards")
-    public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
-        return cs.getCardsByDeckId(id);
-    }
-    
-    @PutMapping(value = "/cards", consumes = "application/json",
-            produces = "application/json")
-    public Card updateCard(@RequestBody Card c) {
-        return cs.updateCard(1, c);
-    }
-    
-    @DeleteMapping(value = "/cards/{id}")
-    public boolean deleteCard(@PathVariable("id") int id) {
-    	return cs.deleteCard(id);
-    }
+	@GetMapping(value = "/cards")
+	public List<Card> getAllCards() {
+		return cs.getAllCards();
+	}
+
+	@GetMapping(value = "/decks/{id}/cards")
+	public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
+		return cs.getCardsByDeckId(id);
+	}
+
+	 @PutMapping(value = "/cards/{deck_id}", consumes = "application/json",
+	            produces = "application/json")
+	    public Card updateCard(@PathVariable("deck_id") int deckId, @RequestBody Card c) {
+	    	log.trace("updateCard(): deck_id: [" + deckId +"] Card: [" + c.toString() + "]");
+	        return cs.updateCard(deckId, c);
+	}
+
+	@DeleteMapping(value = "/cards/{id}")
+	public boolean deleteCard(@PathVariable("id") int id) {
+		return cs.deleteCard(id);
+	}
+ 
 
 }
