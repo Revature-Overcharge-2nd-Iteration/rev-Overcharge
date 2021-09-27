@@ -26,6 +26,7 @@ export class LibraryComponent implements OnInit {
   curUser: any;
   curDeck: Deck;
   addedCards: Card[] = [];
+  updateCards: Card[] =[];
   deletedCards: number[] = [];
   role: any;
 
@@ -124,19 +125,31 @@ private getDismissReason(reason: any): string {
 }
 
 saveDeck(deckArray: Array<Card>) {
+  console.log("saving deck...");
   this.addedCards = [];
+  this.updateCards = [];
   for (let i = 0; i < this.curDeck.cards.length; i++) {
     if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
+      console.log("card Added");
       this.addedCards.push(this.curDeck.cards[i]);
     }
   }
   for(let i = 0; i < this.addedCards.length; i++){
-    let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
-    this.cardService.addCard(this.curDeck.id, newCard).subscribe();
+    let id = this.curDeck.cards[i].id;
+    if(id == 0){
+      console.log("card id is zero adding card.");
+      let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
+      this.cardService.addCard(this.curDeck.id, newCard).subscribe();
+    } else {
+      console.log("card id is not zero updating card. this.curDeck.id: [" + this.curDeck.id + "]");
+      let newCard = new Card(id, this.addedCards[i].question, this.addedCards[i].answer, 0);
+      this.cardService.updateCard(this.curDeck.id, newCard).subscribe();
   }
   for(let i = 0; i < this.deletedCards.length; i++) {
+    console.log("card Deleted");
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
+}
 }
 
 getDeckId(id: number) {

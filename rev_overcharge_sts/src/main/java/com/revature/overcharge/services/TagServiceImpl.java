@@ -21,7 +21,6 @@ public class TagServiceImpl implements TagService {
 	
 	@Override
     public List<TechTag> getAllTags() {
-    	System.out.println("Inside getAllDecks");
         List<TechTag> tags = (List<TechTag>) tr.findAll();
   
         return tags;

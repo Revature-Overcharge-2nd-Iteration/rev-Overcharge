@@ -42,6 +42,12 @@ public class TechTag {
 	}
 	
 
+	public TechTag(int id, String tag) {
+		this.id = id;
+		this.tag = tag;
+	}
+
+
 	public int getId() {
 		return id;
 	}
