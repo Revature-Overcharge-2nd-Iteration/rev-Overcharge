@@ -32,7 +32,6 @@ public class TechTag {
     private Set<Deck> decks = new HashSet<>();
 	
 
-
 	public TechTag() {
 		super();
 	}

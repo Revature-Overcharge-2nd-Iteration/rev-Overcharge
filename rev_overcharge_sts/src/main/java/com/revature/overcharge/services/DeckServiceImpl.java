@@ -133,12 +133,17 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             Deck addedDeck = addDeck(d);
+            System.out.println("deck is added");
             addedDeck.setAvgRating(0.0);
+            System.out.println("average is set");
+
 
             for (Card c : d.getCards()) {
                 addedDeck = getDeck(addedDeck.getId());
                 c.setDeck(addedDeck);
                 cs.addCard(addedDeck.getId(), c);
+                System.out.println("card is added");
+
             }
 
             os.setCreateADeckWeekly(d.getCreator().getId());
@@ -146,6 +151,7 @@ public class DeckServiceImpl implements DeckService {
             addedDeck = getDeck(addedDeck.getId());
             log.info(addedDeck.toString());
             return addedDeck;
+            
         }
     }
 
@@ -178,12 +184,13 @@ public class DeckServiceImpl implements DeckService {
 		
 		Deck d = dr.findById(id);
 		
+		System.out.println(d);
 		if(d.getStatus() != 1) {
 			throw new AlreadyApprovedException("You can't change the status of a deck that isn't pending");
 		}
 		
 		d.setStatus(status);
-		return d;
+		return dr.save(d);
 	}
 
 	@Override
