@@ -2,8 +2,6 @@ package com.revature.overcharge.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.services.CardService;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RestController
 public class CardController {
+
 	private static final Logger log = LoggerFactory.getLogger(CardController.class);
 
 	@Autowired
@@ -57,4 +56,5 @@ public class CardController {
 		return cs.deleteCard(id);
 	}
  
+
 }

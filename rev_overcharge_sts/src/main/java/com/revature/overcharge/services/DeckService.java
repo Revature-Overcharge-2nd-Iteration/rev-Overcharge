@@ -31,6 +31,7 @@ public interface DeckService {
 
 	public Deck deckApproval(int id, int status) throws BadParameterException, AlreadyApprovedException;
 
-	public Deck setDeckTags(int id, DeckTagsDTO deckTagsDTO);
+	Deck setDeckTags(int id, DeckTagsDTO deckTagsDTO);
+
 
 }

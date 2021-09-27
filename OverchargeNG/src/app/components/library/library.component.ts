@@ -1,17 +1,16 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Deck } from 'src/app/models/deck';
 import { Tag } from 'src/app/models/tag';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
+import { User } from 'src/app/models/user';
 import { CardService } from 'src/app/services/card.service';
 import { FeedbackService } from '../../services/feedback.service';
 import { Feedback } from '../../models/feedback';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
-import { identifierModuleUrl } from '@angular/compiler';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-library',
@@ -27,9 +26,9 @@ export class LibraryComponent implements OnInit {
   curUser: any;
   curDeck: Deck;
   addedCards: Card[] = [];
-  updateCards: Card[] = [];
+  updateCards: Card[] =[];
   deletedCards: number[] = [];
-  updateCard: any[] = [];
+  role: any;
 
   //For Feedback
   feedbackList: Feedback[] = [];
@@ -50,12 +49,13 @@ export class LibraryComponent implements OnInit {
       this.displayAllDecks();
       this.getAllTags();
       this.curUser = localStorage.getItem("username");
+      this.role = localStorage.getItem("role");
   }
 
 
 closeResult = '';
 
-constructor(private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
+constructor(private router: Router, private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
 
 addRow() {
   this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
@@ -86,7 +86,6 @@ getFilteredList(){
 
   })
 }
-
 
   displayAllDecks() {
     this.deckHttp.getAllDecks().subscribe(
@@ -126,32 +125,15 @@ private getDismissReason(reason: any): string {
 }
 
 saveDeck(deckArray: Array<Card>) {
-  console.log("saveDeck()");
+  console.log("saving deck...");
   this.addedCards = [];
   this.updateCards = [];
- 
- 
- 
   for (let i = 0; i < this.curDeck.cards.length; i++) {
-//    console.log("saveDeck(): i: [" + i + "]");
-//    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
-     if(this.curDeck.cards[i].question != "") {
-        console.log("saveDeck(): addedCards.push(this.curDeck.cards[" + i +"]): [" + this.curDeck.cards[i].question + "] id: [" + this.curDeck.cards[i].id + "]");
+    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
+      console.log("card Added");
       this.addedCards.push(this.curDeck.cards[i]);
     }
   }
-
-
-  /*
-  for (let i = 0; i < this.curDeck.cards.length; i++) {
-    if(this.curDeck.cards[i].id > 0 && this.curDeck.cards[i].question != "") {
-      console.log("saveDeck(): updateCards.push(this.curDeck.cards[i]): [" + this.curDeck.cards[i].question + "]");
-      this.updateCards.push(this.curDeck.cards[i]);
-    }
-  }
-*/
-
-
   for(let i = 0; i < this.addedCards.length; i++){
     let id = this.curDeck.cards[i].id;
     if(id == 0){
@@ -163,13 +145,11 @@ saveDeck(deckArray: Array<Card>) {
       let newCard = new Card(id, this.addedCards[i].question, this.addedCards[i].answer, 0);
       this.cardService.updateCard(this.curDeck.id, newCard).subscribe();
   }
-
-  }
- 
   for(let i = 0; i < this.deletedCards.length; i++) {
+    console.log("card Deleted");
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
-
+}
 }
 
 getDeckId(id: number) {
@@ -192,5 +172,13 @@ getDeckId(id: number) {
 
     this.displayFeedback = true;
 
-  }
+}
+
+approveOrDenyDeck(deckID: number, status: number, role: number) {
+  this.deckHttp.approveOrDenyDeck(deckID, status, role).subscribe();
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate(["/library"]);
+    });
+}
+
 }

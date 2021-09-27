@@ -1,6 +1,7 @@
 package com.revature.overcharge.beans;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ public class TechTag {
 	
 	
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)
@@ -32,7 +34,6 @@ public class TechTag {
     private Set<Deck> decks = new HashSet<>();
 	
 
-
 	public TechTag() {
 		super();
 	}
@@ -42,6 +43,12 @@ public class TechTag {
 		this.tag = tag;
 	}
 	
+
+	public TechTag(int id, String tag) {
+		this.id = id;
+		this.tag = tag;
+	}
+
 
 	public int getId() {
 		return id;
@@ -70,13 +77,30 @@ public class TechTag {
 	public void addDeck(Deck deck) {
 		this.decks.add(deck);
 	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, tag);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TechTag other = (TechTag) obj;
+		return id == other.id && Objects.equals(tag, other.tag);
+	}
 
 
 	@Override
 	public String toString() {
 		return "TechTag [id=" + id + ", tag=" + tag + "]";
-	}
-	
-	
+	}	
 
 }

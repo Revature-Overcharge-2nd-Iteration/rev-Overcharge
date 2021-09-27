@@ -1,5 +1,7 @@
 package com.revature.overcharge.steps;
 
+import org.openqa.selenium.JavascriptExecutor;
+
 import org.openqa.selenium.WebDriver;
 
 import com.revature.overcharge.pages.CardTraversal;
@@ -24,9 +26,9 @@ public class CardTraversalSteps {
 	public void user_has_logged_in() throws InterruptedException {
 		cardTraversal.login.click();
 		Thread.sleep(3000);
-		cardTraversal.inputUname.sendKeys("user" + "\n");
+		cardTraversal.inputUname.sendKeys("user");
 		Thread.sleep(3000);
-		cardTraversal.inputPass.sendKeys("pass" + "\n");
+		cardTraversal.inputPass.sendKeys("pass");
 		Thread.sleep(3000);
 		cardTraversal.loginButton.click();
 		Thread.sleep(3000);
@@ -46,6 +48,17 @@ public class CardTraversalSteps {
 
 	@Then("User traverses a deck")
 	public void user_traverses_a_deck() throws InterruptedException {
+		// Need to traverse deck until there is no more questions
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
 		cardTraversal.nextquestion.click();
 		Thread.sleep(1000);
 		cardTraversal.nextquestion.click();
@@ -83,7 +96,13 @@ public class CardTraversalSteps {
 	@Then("User enters a rating to submit")
 	public void user_enters_a_rating_to_submit() throws InterruptedException {
 		cardTraversal.star5.click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
+		   js.executeScript("window.scrollBy(0,350)", "");
+		   
+		   Thread.sleep(5000);
+		
 		cardTraversal.submitrating.click();
 		Thread.sleep(3000);
 	}

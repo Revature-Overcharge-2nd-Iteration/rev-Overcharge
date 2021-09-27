@@ -8,6 +8,7 @@ export class Deck {
   creator: User;
   title: string;
   createdOn: number;
+  status: number;
   cards: Array<Card>;
   tags: Array<Tag>;
   avgRating: any;
@@ -18,6 +19,7 @@ export class Deck {
     creator: User,
     title: string,
     createdOn: number,
+    status: number,
     cards: Array<Card>,
     avgRating?: number,
     feedback?: Array<Feedback>
@@ -26,6 +28,7 @@ export class Deck {
     this.creator = creator;
     this.title = title;
     this.createdOn = createdOn;
+    this.status = status;
     this.cards = cards;
     this.avgRating = avgRating;
     this.feedback = feedback!;

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class CardService {
 
   deleteCard(id: number): Observable<boolean>{
     console.log("deleteCard()");
-    return this.http.delete<boolean>('http://localhost:8081/cards/' + id);
+    return this.http.delete<boolean>
+    ('http://localhost:8081/cards/'+id);
   }
 }
+
