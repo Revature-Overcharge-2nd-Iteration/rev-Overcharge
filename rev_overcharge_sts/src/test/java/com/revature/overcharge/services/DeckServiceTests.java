@@ -126,6 +126,44 @@ public class DeckServiceTests {
 			ds.getDeck(deck.getId());
 		});
 	}
+	
+	@Test
+	@Transactional
+	void test_updateDeckAndCards_positive() {
+		User creator = new User("ahmed", "pass", null, 2, null);
+		List<Card> card = new ArrayList<Card>();
+		card.add(new Card("whats your name", "my name is ahmed", null));
+		Deck deck = new Deck( creator, "new deck3", 1, null, card, null, null);
+		
+		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
+		Mockito.when(dr.save(deck)).thenReturn(new Deck( creator, "new deck3", 1, null, card, null, null));
+		Mockito.when(cr.save(card.get(0))).thenReturn(new Card("whats your name", "my name is ahmed", null));
+		
+		deck = ds.updateDeckAndCards(deck);
+		
+		Assertions.assertEquals("new deck3", deck.getTitle());
+	}
+	
+	@Test
+	@Transactional
+	void test_updateDeckAndCards_InvalidId() {
+		User creator = new User("ahmed", "pass", null, 2, null);
+		List<Card> card = new ArrayList<Card>();
+		card.add(new Card("whats your name", "my name is ahmed", null));
+		Deck deck = new Deck( creator, "new deck3", 1, null, card, null, null);
+		
+		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
+		Mockito.when(dr.save(deck)).thenReturn(new Deck( creator, "new deck3", 1, null, card, null, null));
+		Mockito.when(cr.save(card.get(0))).thenReturn(new Card("whats your name", "my name is ahmed", null));
+		
+		
+		
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
+			ds.updateDeckAndCards(deck);
+		});
+	}
 
 	@Test
 	@Transactional
