@@ -126,10 +126,27 @@ public class CardServiceTests {
 	
 	@Test
 	@Transactional
+	void test_updateCard_CardNoExist() {
+		Deck deck = new Deck();
+		Card card = new Card(1, deck, "whats your lastNameAH", "my name is Elhewazy", null);
+		
+		
+		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		assertThrows(ResponseStatusException.class, () -> {
+            cs.updateCard(1, card);
+        });
+		
+	}
+	
+	@Test
+	@Transactional
 	void updateCardFailure() {
 		Deck deck = new Deck();
 		Card card = new Card(1, deck, "whats your lastNameAH", "my name is Elhewazy", null);
 		
+		
+		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> {
             cs.updateCard(1, card);
