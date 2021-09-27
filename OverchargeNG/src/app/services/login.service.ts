@@ -31,10 +31,15 @@ export class LoginService {
     }
   }
 
-  setUsername(username: string): void {
+  logout(){
+    this.http.post(`http://localhost:8081/logout`, "");
+  }
+
+  setUsername(username: string, role: number): void {
     if(username != "Guest") {
       this.loggedIn = true;
     }
     localStorage.setItem("username", username);
+    localStorage.setItem("role", "" + role)
   }
 }

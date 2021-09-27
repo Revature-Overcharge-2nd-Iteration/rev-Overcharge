@@ -29,6 +29,41 @@ class UserServiceTests {
 	public UserService us;
 	@MockBean
 	UserRepo ur;
+	@MockBean
+	 public ObjectiveService os;
+	
+	@Test
+	@Transactional
+	void test_login_positive() {
+		User expectedUser = new User("test", "test", 0, 0, null);
+		
+		Mockito.when(ur.existsByUsernameAndPassword("test", "test")).thenReturn(true);
+		Mockito.when(ur.findByUsername("test")).thenReturn(expectedUser);
+		//Mockito.when(os.loginObj(user))
+		Mockito.when(ur.save(expectedUser)).thenReturn(expectedUser);
+		
+		User actualUser = us.login(expectedUser);
+		
+		Assertions.assertEquals(expectedUser, actualUser);
+		
+	}
+	
+	@Test
+	@Transactional
+	void test_login_incorrectLogin() {
+		User expectedUser = new User("test", "test", 0, 0, null);
+		
+		Mockito.when(ur.existsByUsernameAndPassword("test", "test")).thenReturn(false);
+		Mockito.when(ur.findByUsername("test")).thenReturn(expectedUser);
+		//Mockito.when(os.loginObj(user))
+		Mockito.when(ur.save(expectedUser)).thenReturn(expectedUser);
+		
+		
+		assertThrows(ResponseStatusException.class, () -> {
+			User actualUser = us.login(expectedUser);
+		});
+		
+	}
 
 	@Test
 	@Transactional
@@ -91,8 +126,8 @@ class UserServiceTests {
 		list.add(user);
 
 		Mockito.when(ur.findAll()).thenReturn(list);
-
-		Assertions.assertNotNull(list);
+		List<User> actualList = us.getAllUsers();
+		Assertions.assertEquals(actualList, list);
 	}
 
 	@Test
@@ -142,11 +177,5 @@ class UserServiceTests {
 		});
 	}
 
-	@Test
-	@Transactional
-	void testLogin() {
-		Assertions.assertEquals(0, 0);
-
-	}
 
 }

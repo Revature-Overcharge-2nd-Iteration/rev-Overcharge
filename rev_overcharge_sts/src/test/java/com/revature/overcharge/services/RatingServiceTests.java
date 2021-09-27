@@ -19,8 +19,10 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.RatingId;
+import com.revature.overcharge.beans.User;
 import com.revature.overcharge.repositories.RatingRepo;
 
 @SpringBootTest(
@@ -39,6 +41,7 @@ public class RatingServiceTests {
     void saveRatingAddPass() {
         // This rating doesn't exist yet in the database
         Rating ratingToAdd = new Rating(2, 1, 1, null);
+        
         String rToAddStr = ratingToAdd.toString();
 
         Rating addedRating = rs.saveRating(ratingToAdd);
@@ -46,6 +49,27 @@ public class RatingServiceTests {
 
         addedRating.setRatedOn(null);
         assertEquals(rToAddStr, addedRating.toString());
+    }
+    
+    @Test
+    void test_saveRating_ratingExists() {
+    	User creator = new User("ahmed", "pass", null, 2, null);
+    	creator.setId(1);
+    	Rating ratingToAdd = new Rating(2, 1, 1, null);
+    	List<Rating> ratings = new ArrayList<>();
+    	ratingToAdd.setUserId(1);
+    	ratings.add(ratingToAdd);
+    	Deck deck = new Deck();
+        deck.setId(1);
+        
+        
+        Mockito.when(rr.getByUserId(1)).thenReturn(ratings);
+        
+        Rating actualRating = rs.saveRating(ratingToAdd);
+        
+        Assertions.assertEquals(actualRating, ratingToAdd);
+        
+    	
     }
 
 //     @Test
@@ -108,6 +132,17 @@ public class RatingServiceTests {
     @Test
     void getAllRatingsPass() {
         assertNotNull(rs.getRatings(null, null));
+    }
+    
+    @Test
+    void test_updateRating_positive() {
+    	
+    	Rating expectedRating = new Rating(2, 1, 1, null);
+    	Mockito.when(rr.save(expectedRating)).thenReturn(expectedRating);
+    	
+    	Rating actualRating = rs.updateRating(expectedRating);
+    	Assertions.assertEquals(expectedRating,actualRating);
+    	
     }
 
     @Test

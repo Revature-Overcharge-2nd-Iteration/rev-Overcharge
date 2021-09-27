@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
+import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.repositories.CardRepo;
+import com.revature.overcharge.repositories.DeckRepo;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -21,6 +23,9 @@ public class CardServiceImpl implements CardService {
     @Autowired
     CardRepo cr;
 
+    @Autowired
+    DeckRepo dr;
+    
     @Autowired
     ObjectiveService os;
     
@@ -33,10 +38,17 @@ public class CardServiceImpl implements CardService {
             log.warn("Card id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
-            c.setDeck(ds.getDeck(deckId));
+        	Deck d = ds.getDeck(deckId);
+            c.setDeck(d);
             c.setCreatedOn(new Date().getTime());
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
+            
+            if(d.getStatus()!= 1) {
+            d.setStatus(1);
+            dr.save(d);
+            }
+            
             return c;
         }
     }
@@ -52,14 +64,30 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card updateCard(Card newCard) {
-        if (cr.existsById(newCard.getId())) {
-            return cr.save(newCard);
-        } else {
-            log.warn("Card id is invalid for update");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-    }
+	public Card updateCard(int deckId, Card newCard) {
+		
+		if (dr.existsById(deckId)) {
+			if (cr.existsById(newCard.getId())) {
+				Deck objDeck = ds.getDeck(deckId);
+				newCard.setDeck(ds.getDeck(deckId));
+				
+				Card objNewCard = cr.save(newCard);
+                objDeck.setStatus(1);
+                dr.save(objDeck);
+				
+							
+				return objNewCard;
+				
+
+			} else {
+				
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 
     @Override
     public boolean deleteCard(int id) {

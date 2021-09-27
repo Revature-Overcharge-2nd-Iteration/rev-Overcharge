@@ -18,6 +18,7 @@ public abstract class Runner {
 	public static void setup() {
 		// Input your filepath for your WebDriver executable
 		String filePath = "C:/SeleniumStuff/chromedriver_win32/chromedriver.exe";
+
 		
 		// Comment out the setup that you do not use.
 		driver = chromeSetup(filePath);

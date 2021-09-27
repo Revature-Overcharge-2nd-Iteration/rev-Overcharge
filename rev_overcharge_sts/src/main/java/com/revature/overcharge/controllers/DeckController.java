@@ -25,7 +25,7 @@ import com.revature.overcharge.exception.AlreadyApprovedException;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.DeckService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RestController
 public class DeckController {
 
@@ -82,15 +82,13 @@ public class DeckController {
 		return ds.updateDeckAndCards(newDeck);
 	}
 
-	@PatchMapping(value = "/decks/{id}/{status}", produces = "application/json" )
-	public ResponseEntity<Object> deckApproval(@PathVariable int id, @PathVariable int status) {
+	@PatchMapping(value = "/decks/{id}/{status}/{role}", produces = "application/json" )
+	public ResponseEntity<Object> deckApproval(@PathVariable int id, @PathVariable int status, @PathVariable int role) {
 
 		try {
-			HttpSession session = request.getSession(false);
 
-			User user = (User) session.getAttribute("currentUser");
 
-			if (session == null || user.getRole() != 1) {
+			if (role != 1) {
 				return ResponseEntity.status(400).body("You are not an admin!");
 			}
 			

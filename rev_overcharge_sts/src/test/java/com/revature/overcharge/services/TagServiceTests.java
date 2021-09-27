@@ -9,8 +9,11 @@ import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
@@ -43,13 +46,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class TagServiceTests {	
-	
+
 	@Mock
 	TagRepo tr;
 	
 	@Mock
 	DeckRepo dr;
 	
+	@Mock
+	RatingServiceImpl rs;
+
 	@InjectMocks
 	public DeckServiceImpl ds;
 	
@@ -57,7 +63,7 @@ public class TagServiceTests {
 	public TagServiceImpl ts;
 	
 	private AutoCloseable closeable;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		closeable = MockitoAnnotations.openMocks(this);
@@ -67,9 +73,6 @@ public class TagServiceTests {
 	void tearDown() throws Exception {
 		 closeable.close();
 	}
-
-
-	
 
 //	@BeforeEach
 //	public void setUp() throws Exception {
@@ -82,9 +85,7 @@ public class TagServiceTests {
 //		this.ds = new DeckServiceImpl(dr, tr);
 //		
 //	}
-	
-	
-	
+
 	@Test
 	public void test_getAllTags_positive() throws SQLException {
 
@@ -104,6 +105,36 @@ public class TagServiceTests {
 		
 		assertEquals(expected, actual);
 		
+	}
+	
+	@Test 
+	public void test_getDecksByTagId_positive() throws SQLException{
+		
+		
+		List<Card> card = new ArrayList<Card>();
+		card.add(new Card("whats your name", "my name is ahmed", null));
+		Set<TechTag> tags = new HashSet<>();
+		TechTag tag = new TechTag( 1, "Joe Shmo");
+		tags.add(tag);
+		Deck deck = new Deck();
+		tag.addDeck(deck);
+		deck.addTags(tag);
+		deck.setAvgRating(null);
+		List<Deck> mockReturnValues = new ArrayList<>();
+		mockReturnValues.add(deck);
+		
+		when(this.dr.getByTagId(1)).thenReturn(mockReturnValues);
+		when(this.rs.calculateAvgRating(deck.getId())).thenReturn(0.0);
+		
+		tr.save(tag);
+		dr.save(deck);
+		
+		List<Deck> actual = ds.getDecksByTagId(1);
+		
+		List<Deck> expected = new ArrayList<>();
+		expected.add(deck);
+		
+		assertEquals(expected,actual);
 	}
 	
 	@Test
@@ -136,5 +167,4 @@ public class TagServiceTests {
 		
 		assertEquals(deck, actual);
 	}
-
 }

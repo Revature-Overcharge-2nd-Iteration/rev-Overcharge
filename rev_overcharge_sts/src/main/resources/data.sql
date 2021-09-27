@@ -2,7 +2,7 @@
 -- Users
 insert into users (id, username, password, points, role, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1, 1629315831000);
 insert into users (id, username, password, points, role, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 2, 1629315706000);
-insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1, 1629315843000);
+insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 2, 1629315843000);
 insert into users (id, username, password, points, role, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 2, 1629315937000);
 insert into users (id, username, password, points, role, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1, 1629315680000);
 insert into users (id, username, password, points, role, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1, 1629315786000);
@@ -153,11 +153,11 @@ insert into cards (id, deck_id, question, answer, created_on) values (49, 3, 'Tr
 insert into cards (id, deck_id, question, answer, created_on) values (50, 3, 'T/F: A singleton bean returns a NEW instance every time the bean is retrieved from the Application Context?', 'False', 1629315787000);
 
 -- Feedback
-insert into feedbacks (id, deck_id, content, created_on) values (1, 3, 'my feedback', 1629315720000);
-insert into feedbacks (id, deck_id, content, created_on) values (2, 1, 'Heyyy', 1629315719000);
-insert into feedbacks (id, deck_id, content, created_on) values (3, 2, 'Hello', 1629315989000);
-insert into feedbacks (id, deck_id, content, created_on) values (4, 3, 'The feedback', 1629315720000);
-insert into feedbacks (id, deck_id, content, created_on) values (5, 3, '123"', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (1, 3, 'The questions are not that challenging', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (2, 1, 'great set of questions', 1629315719000);
+insert into feedbacks (id, deck_id, content, created_on) values (3, 2, 'Could you add more?', 1629315989000);
+insert into feedbacks (id, deck_id, content, created_on) values (4, 3, 'very comprehensible', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (5, 3, 'More testing questions please!', 1629315720000);
 -- StudiedCards
 -- User 3 does not want to see cards 35, 36 anymore
 insert into studied_cards (user_id, card_id, studied_on) values (3, 35, 1629315720000);
