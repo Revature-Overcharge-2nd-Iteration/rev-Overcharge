@@ -42,6 +42,13 @@ public class CardServiceImpl implements CardService {
             c.setCreatedOn(new Date().getTime());
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
+            
+            Deck d = ds.getDeck(deckId);
+            if(d.getStatus()!= 1) {
+            d.setStatus(1);
+            dr.save(d);
+            }
+            
             return c;
         }
     }
@@ -65,17 +72,20 @@ public class CardServiceImpl implements CardService {
 				
 				
 				Deck objDeck = ds.getDeck(deckId);
-				log.debug("updateCard(): retrieved objDeck: [" + objDeck.toString() + "]");
+				
 				
 				newCard.setDeck(ds.getDeck(deckId));
 				
-				log.debug("updateCard(): cr.existsById(newCard.getId() is true: calling cr.save,");
 				Card objNewCard = cr.save(newCard);
-
-				log.debug("updateCard(): retrun from CRUD objNewCard: [" + objNewCard.toString() + "]");
+				
+				objDeck.setStatus(1);
+                dr.save(objDeck);
+				
 				return objNewCard;
+				
+
 			} else {
-				log.warn("Card id is invalid for update");
+				
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 			}
 		}else {
