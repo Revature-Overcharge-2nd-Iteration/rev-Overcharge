@@ -45,6 +45,13 @@ public class CardServiceImpl implements CardService {
             dr.save(d);
             c = cr.save(c);
             os.setAdd4CardsDaily(deckId, c);
+            
+            Deck d = ds.getDeck(deckId);
+            if(d.getStatus()!= 1) {
+            d.setStatus(1);
+            dr.save(d);
+            }
+            
             return c;
         }
     }
@@ -73,7 +80,10 @@ public class CardServiceImpl implements CardService {
 				
 							
 				return objNewCard;
+				
+
 			} else {
+				
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 			}
 		}else {

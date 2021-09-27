@@ -50,11 +50,15 @@
         <span [ngClass]="class3" (click)="ratingStars(3)" id="3stars"></span>
         <span [ngClass]="class4" (click)="ratingStars(4)"></span>
         <span id="star5" [ngClass]="class5" (click)="ratingStars(5)"></span>
+        <br><br>
+        <mat-divider></mat-divider>
       </div>
       
       <div>
-        <input type="text" placeholder="Please enter any feedback you have for the author!" [(ngModel)]="fbContent">
-        <span>{{ fbContent }}</span>
+        <br>
+        <h4>Additional feedback below is welcomed</h4>
+        <textarea  class="md-textarea form-control" matInput placeholder="Please enter any feedback you may have for the author!" [(ngModel)]="fbContent"></textarea>
+        <br><br>
       </div>
 
       <button
@@ -67,20 +71,6 @@
       </button>
 
     </div>
-    <div *ngIf="rate">
-      <table class="table">
-        <tbody>
-          <ng-container *ngFor="let feedback of Feedbacks">
-            <tr>
-              <td style="text-align: center;">{{ feedback.content }}</td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-
-
-
 
     <div class="tp-wrapper" *ngIf="unfinished">
       <div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
