@@ -66,15 +66,23 @@ public class Deck {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn, List<Card> cards,  Set<TechTag> tags, List<Feedback> feedback) {
+    public Deck(User creator, String title, int status, Long createdOn, List<Card> cards,  Set<TechTag> tags, List<Feedback> feedback) {
         super();
+        this.creator = creator;
+        this.title = title;
+        this.status = status;
+        this.createdOn = createdOn;
+        this.cards = cards;
+        this.feedback = feedback;
+    }
+
+    public Deck(User creator, String title, Long createdOn, List<Card> cards,  Set<TechTag> tags, List<Feedback> feedback)  {
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
         this.feedback = feedback;
     }
-
     public int getId() {
         return id;
     }
