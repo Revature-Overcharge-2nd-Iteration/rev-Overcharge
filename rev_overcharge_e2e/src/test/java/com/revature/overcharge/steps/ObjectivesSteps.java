@@ -1,5 +1,7 @@
 package com.revature.overcharge.steps;
 
+import org.openqa.selenium.JavascriptExecutor;
+
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.openqa.selenium.Keys;
@@ -224,6 +226,18 @@ public class ObjectivesSteps {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		
+    	
+    	JavascriptExecutor js = (JavascriptExecutor) driver;  
+		   js.executeScript("window.scrollBy(0,350)", "");
+		
+		   try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
 
 		objectives.submitRatingBtn.click();
 
@@ -696,6 +710,7 @@ public class ObjectivesSteps {
 
 	@Given("User clicks add\\/edit cards")
 	public void user_clicks_add_edit_cards() {
+		objectives.libraryTab.click();
 		objectives.libraryTab.click();
 
 		try {
